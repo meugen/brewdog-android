@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BrewDog</string>
+    <string name="item_beer_ibu_format">IBU %.1f</string>
 </resources>

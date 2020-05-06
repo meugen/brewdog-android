@@ -1,7 +1,8 @@
-package com.brewdog.android
+package com.brewdog.android.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.brewdog.android.R
 
 class MainActivity : AppCompatActivity() {
 

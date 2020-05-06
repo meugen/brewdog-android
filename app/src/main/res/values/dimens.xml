@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="spacing_8dp">8dp</dimen>
+    <dimen name="spacing_16dp">16dp</dimen>
+
+    <dimen name="item_beer_vertical_margin">@dimen/spacing_8dp</dimen>
+    <dimen name="item_beer_horizontal_margin">@dimen/spacing_16dp</dimen>
+</resources>
