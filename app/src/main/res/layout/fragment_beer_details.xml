@@ -1,6 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/start_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_begin="@dimen/spacing_24dp"
+            android:orientation="vertical"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/end_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_end="@dimen/spacing_24dp"
+            android:orientation="vertical"/>
+
+        <ImageView
+            android:id="@+id/beerImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            />
+
+        <TextView
+            android:id="@+id/beerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/start_guideline"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline"
+            app:layout_constraintTop_toBottomOf="@id/beerImage"
+            android:layout_marginTop="@dimen/spacing_24dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            tools:text="Beer name"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/beerDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/start_guideline"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline"
+            app:layout_constraintTop_toBottomOf="@id/beerName"
+            android:layout_marginTop="@dimen/spacing_8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            tools:text="description"/>
+
+        <TextView
+            android:id="@+id/malt_ingredients_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/start_guideline"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline"
+            app:layout_constraintTop_toBottomOf="@id/beerDescription"
+            android:layout_marginTop="@dimen/spacing_24dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:text="@string/malt_ingredients_label"
+            android:gravity="center"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/maltIngredientsRecycler"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/malt_ingredients_label"
+            android:layout_marginTop="@dimen/spacing_8dp"/>
+
+        <TextView
+            android:id="@+id/hops_ingredients_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/start_guideline"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline"
+            app:layout_constraintTop_toBottomOf="@id/maltIngredientsRecycler"
+            android:layout_marginTop="@dimen/spacing_24dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:text="@string/hops_ingredients_label"
+            android:gravity="center"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hopsIngredientsRecycler"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hops_ingredients_label"
+            android:layout_marginTop="@dimen/spacing_8dp"/>
+
+        <TextView
+            android:id="@+id/beerBrewerTips"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/start_guideline"
+            app:layout_constraintEnd_toEndOf="@id/end_guideline"
+            app:layout_constraintTop_toBottomOf="@id/hopsIngredientsRecycler"
+            android:layout_marginTop="@dimen/spacing_24dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            tools:text="brewer tips"/>
+
+        <Space
+            android:id="@+id/bottom_space"
+            android:layout_width="@dimen/spacing_24dp"
+            android:layout_height="@dimen/spacing_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/beerBrewerTips"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

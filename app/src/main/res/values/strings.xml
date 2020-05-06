@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">BrewDog</string>
     <string name="item_beer_ibu_format">IBU %.1f</string>
+    <string name="malt_ingredients_label">Malt ingredients</string>
+    <string name="hops_ingredients_label">Hops ingredients</string>
 </resources>

@@ -32,7 +32,7 @@ class BeersFragment: Fragment(), BeersAdapter.OnBeersListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecycler(requireContext())
+        setupRecycler(view.context)
     }
 
     private fun setupRecycler(context: Context) {

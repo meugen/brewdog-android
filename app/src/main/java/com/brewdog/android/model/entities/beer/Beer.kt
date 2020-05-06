@@ -37,7 +37,7 @@ data class Beer(
     val boilVolume: Volume,
     @SerializedName("method")
     val methods: Methods,
-    @SerializedName("ingedients")
+    @SerializedName("ingredients")
     val ingredients: Ingredients,
     @SerializedName("food_pairing")
     val foodPairing: List<String>,
