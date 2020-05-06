@@ -1,10 +1,10 @@
-package com.brewdog.android.ui.fragments
+package com.brewdog.android.ui.fragments.beers
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.brewdog.android.model.entities.Beer
+import com.brewdog.android.model.entities.beer.Beer
 import com.brewdog.android.model.repositories.QueryMapBuilder
 import com.brewdog.android.model.repositories.beers.BeersRepository
 import kotlinx.coroutines.flow.collect
@@ -23,9 +23,15 @@ class BeersViewModel(
             }
         }
         viewModelScope.launch {
-            beersRepository.load(QueryMapBuilder.EMPTY)
+            beersRepository.load()
         }
     }
 
     fun beersData(): LiveData<List<Beer>> = beersData
+
+    fun onLoadMore() {
+        viewModelScope.launch {
+            beersRepository.loadNextPage()
+        }
+    }
 }

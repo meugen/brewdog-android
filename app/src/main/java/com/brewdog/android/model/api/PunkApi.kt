@@ -1,6 +1,6 @@
 package com.brewdog.android.model.api
 
-import com.brewdog.android.model.entities.Beer
+import com.brewdog.android.model.entities.beer.Beer
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.QueryMap

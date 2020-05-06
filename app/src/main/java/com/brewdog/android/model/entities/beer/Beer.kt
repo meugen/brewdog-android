@@ -1,4 +1,4 @@
-package com.brewdog.android.model.entities
+package com.brewdog.android.model.entities.beer
 
 import com.google.gson.annotations.SerializedName
 

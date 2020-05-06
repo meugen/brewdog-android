@@ -2,15 +2,15 @@ package com.brewdog.android.model.repositories.beers
 
 import android.util.Log
 import com.brewdog.android.model.api.PunkApi
-import com.brewdog.android.model.entities.Beer
+import com.brewdog.android.model.entities.beer.Beer
 import com.brewdog.android.model.repositories.QueryMapBuilder
 import com.brewdog.android.model.repositories.RepositoryResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
+
+private const val BEERS_PAGE_SIZE = 25
 
 class BeersRepository(
     private val punkApi: PunkApi,
@@ -18,32 +18,47 @@ class BeersRepository(
 ) {
 
     private val beersChannel = ConflatedBroadcastChannel<List<Beer>>()
+    private var page: Int = 1
+    private var filter: QueryMapBuilder = QueryMapBuilder.EMPTY
 
     fun beersFlow(): Flow<List<Beer>> {
         return beersChannel.asFlow()
     }
 
-    fun beersByIdFlow(id: Int): Flow<Beer?> {
+    fun beersByIdFlow(id: Int): Flow<Beer> {
         return beersChannel.asFlow()
-            .map { it.find { beer -> beer.id == id } }
+            .transform {
+                it.find { beer -> beer.id == id }
+                    ?.let { beer -> emit(beer) }
+            }
     }
 
-    fun reset() {
+    fun reset(newFilter: QueryMapBuilder) {
+        page = 1
+        filter = newFilter
         beersChannel.offer(emptyList())
     }
 
-    suspend fun load(builder: QueryMapBuilder): RepositoryResult<List<Beer>> {
+    suspend fun load(): RepositoryResult<List<Beer>> {
+        beersChannel.valueOrNull?.let {
+            return RepositoryResult.Success(it)
+        }
         return withContext(dispatcher) {
-            val call = punkApi.getBeers(builder.build())
-            try {
-                val response = call.execute()
-                val beers = requireNotNull(response.body())
-                appendBeers(beers)
-                RepositoryResult.Success(beers)
-            } catch (e: Throwable) {
-                Log.d("BeersRepository", e.message, e)
-                RepositoryResult.Error<List<Beer>>(e)
-            }
+            loadPage(page)
+        }
+    }
+
+    private fun loadPage(page: Int): RepositoryResult<List<Beer>> {
+        val pagedFilter = PageQueryBuilder(filter, page, BEERS_PAGE_SIZE)
+        val call = punkApi.getBeers(pagedFilter.build())
+        return try {
+            val response = call.execute()
+            val beers = requireNotNull(response.body())
+            appendBeers(beers)
+            RepositoryResult.Success(beers)
+        } catch (e: Throwable) {
+            Log.d("BeersRepository", e.message, e)
+            RepositoryResult.Error(e)
         }
     }
 
@@ -52,5 +67,12 @@ class BeersRepository(
             ?: ArrayList()
         beers.addAll(newBeers)
         beersChannel.offer(beers)
+    }
+
+    suspend fun loadNextPage(): RepositoryResult<List<Beer>> {
+        page++
+        return withContext(dispatcher) {
+            loadPage(page)
+        }
     }
 }
