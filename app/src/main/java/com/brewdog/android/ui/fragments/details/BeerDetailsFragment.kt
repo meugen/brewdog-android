@@ -3,10 +3,13 @@ package com.brewdog.android.ui.fragments.details
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.brewdog.android.R
@@ -23,6 +26,11 @@ class BeerDetailsFragment: Fragment() {
     }
     private val maltIngredientsAdapter = IngredientsAdapter()
     private val hopsIngredientsAdapter = IngredientsAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +60,10 @@ class BeerDetailsFragment: Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        (activity as? AppCompatActivity)?.supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowHomeEnabled(true)
+        }
         viewModel.beerData().observe(viewLifecycleOwner, Observer {
             displayBeer(it)
         })
@@ -70,6 +82,13 @@ class BeerDetailsFragment: Fragment() {
         maltIngredientsAdapter.submitItems(beer.ingredients.malt)
         hopsIngredientsAdapter.submitItems(beer.ingredients.hops)
         beerBrewerTips.text = beer.brewersTips
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> findNavController().popBackStack()
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     companion object {

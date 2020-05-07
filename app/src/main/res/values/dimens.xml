@@ -3,6 +3,14 @@
     <dimen name="spacing_8dp">8dp</dimen>
     <dimen name="spacing_16dp">16dp</dimen>
     <dimen name="spacing_24dp">24dp</dimen>
+    <dimen name="spacing_32dp">32dp</dimen>
+    <dimen name="spacing_48dp">48dp</dimen>
+    <dimen name="spacing_60dp">60dp</dimen>
+
+    <dimen name="size_4dp">4dp</dimen>
+    <dimen name="size_8dp">8dp</dimen>
+    <dimen name="size_96dp">96dp</dimen>
+    <dimen name="size_120dp">120dp</dimen>
 
     <dimen name="item_beer_vertical_margin">@dimen/spacing_8dp</dimen>
     <dimen name="item_beer_horizontal_margin">@dimen/spacing_16dp</dimen>

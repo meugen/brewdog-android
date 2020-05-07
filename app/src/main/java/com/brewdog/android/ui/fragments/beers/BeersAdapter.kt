@@ -9,14 +9,11 @@ import com.brewdog.android.ui.utils.inflateInto
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_beer.view.*
 
-private const val LOAD_MORE_THRESHOLD = 5
-
 class BeersAdapter(
     private val listener: OnBeersListener
 ): RecyclerView.Adapter<BeersAdapter.BeerHolder>() {
 
     private var items: List<Beer> = emptyList()
-    private var lastLoadedPosition: Int = 0
 
     fun submitItems(items: List<Beer>) {
         this.items = items
@@ -36,10 +33,7 @@ class BeersAdapter(
     }
 
     override fun onBindViewHolder(holder: BeerHolder, position: Int) {
-        if (lastLoadedPosition < items.size && position >= items.size - LOAD_MORE_THRESHOLD) {
-            lastLoadedPosition = items.size
-            listener.onLoadMore()
-        }
+        listener.onPositionDisplayed(position)
         holder.bind(items[position])
     }
 
@@ -74,6 +68,6 @@ class BeersAdapter(
     interface OnBeersListener {
 
         fun onBeerClick(beer: Beer)
-        fun onLoadMore()
+        fun onPositionDisplayed(position: Int)
     }
 }

@@ -3,4 +3,7 @@
     <string name="item_beer_ibu_format">IBU %.1f</string>
     <string name="malt_ingredients_label">Malt ingredients</string>
     <string name="hops_ingredients_label">Hops ingredients</string>
+    <string name="filter_ibu_check_label">Show only with IBU &lt; 50</string>
+    <string name="apply_action">Apply</string>
+    <string name="filter_action">Filter</string>
 </resources>

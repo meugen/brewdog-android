@@ -14,6 +14,10 @@
         <action
             android:id="@+id/action_beers_to_details"
             app:destination="@id/destination_beer_details"/>
+
+        <action
+            android:id="@+id/action_beers_to_filter"
+            app:destination="@id/destination_beer_filter"/>
     </fragment>
 
     <fragment
@@ -21,5 +25,11 @@
         android:name="com.brewdog.android.ui.fragments.details.BeerDetailsFragment"
         android:label="beer_details"
         tools:layout="@layout/fragment_beer_details"/>
+
+    <fragment
+        android:id="@+id/destination_beer_filter"
+        android:name="com.brewdog.android.ui.fragments.filter.FilterFragment"
+        android:label="beer_filter"
+        tools:layout="@layout/fragment_filter"/>
 
 </navigation>
